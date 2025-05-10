@@ -14,26 +14,30 @@ namespace TaskManagementAPI.Repository
             _dbContext = dbContext;
         }
 
-        //public async Task<Tasks> GetTask(int id)
-        //{
-        //    return await _dbContext.TASKs
-        //        .Include(t => t.User)
-        //        .Include(t => t.Comments)
-        //        .ThenInclude(c => c.User)
-        //        .FirstOrDefaultAsync(t => t.Id == id);
-        //}
-
+        /// <summary>
+        /// Get Task by Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<Tasks> GetTask(int id)
         {
             return await _dbContext.TASKs.FirstOrDefaultAsync(t => t.Id == id);
         }
 
-
+        /// <summary>
+        /// Get All Tasks
+        /// </summary>
+        /// <returns></returns>
         public async Task<List<Tasks>> GetAllTasks()
         {
             return await _dbContext.TASKs.Include(t => t.User).ToListAsync();
         }
 
+        /// <summary>
+        /// Get Task by UserId
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         public async Task<List<Tasks>> GetTasksByUser(int userId)
         {
             return await _dbContext.TASKs
@@ -42,6 +46,12 @@ namespace TaskManagementAPI.Repository
                 .ToListAsync();
         }
 
+        /// <summary>
+        ///  Create New Task
+        /// </summary>
+        /// <param name="task"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         public async Task<Tasks> CreateTask(Tasks task)
         {
             try
@@ -62,6 +72,12 @@ namespace TaskManagementAPI.Repository
             }
         }
 
+        /// <summary>
+        ///  Create New Comment
+        /// </summary>
+        /// <param name="comment"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         public async Task<TaskComment> AddComment(TaskComment comment)
         {
             try
@@ -78,16 +94,7 @@ namespace TaskManagementAPI.Repository
             {
                 // Log or inspect error here
                 throw new Exception("An error occurred while creating the task", ex);
-            }
-            
+            }   
         }
-
-
-        //public async Task<TaskComment> AddComment(TaskComment comment)
-        //{
-        //    _dbContext.TaskComments.Add(comment);
-        //    await _dbContext.SaveChangesAsync();
-        //    return comment;
-        //}
     }
 }

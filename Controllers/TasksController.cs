@@ -19,7 +19,11 @@ namespace TaskManagementAPI.Controllers
             _taskService = taskService;
         }
 
-
+        /// <summary>
+        /// Get All Task for admin only
+        /// </summary>
+        /// <returns></returns>
+        /// 
         [HttpGet("all")]
         [Authorize]
         public async Task<IActionResult> GetAllTask()
@@ -36,6 +40,12 @@ namespace TaskManagementAPI.Controllers
             return Forbid();
         }
 
+
+        /// <summary>
+        /// Get the Task by Task Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         public async Task<IActionResult> GetTask(int id)
         {
@@ -46,15 +56,17 @@ namespace TaskManagementAPI.Controllers
             return Ok(task);
         }
 
+        /// <summary>
+        /// Get Tasks By User userId wise
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         [HttpGet("user/{userId}")]
         [Authorize(Policy = "User")]
         public async Task<IActionResult> GetTasksByUser(int userId)
         {
             // Get user ID from claims (more secure than User.Identity.Name)
             var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            // If using JWT with 'sub' claim:
-            // var currentUserId = User.FindFirstValue("sub");
 
             var isAdmin = User.IsInRole("Admin");
 
@@ -67,6 +79,11 @@ namespace TaskManagementAPI.Controllers
             return Ok(tasks);
         }
 
+        /// <summary>
+        /// Create the new task
+        /// </summary>
+        /// <param name="task"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> CreateTask([FromBody] Tasks task)
         {
@@ -98,6 +115,12 @@ namespace TaskManagementAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// Add new Comment with taskId
+        /// </summary>
+        /// <param name="taskId"></param>
+        /// <param name="comment"></param>
+        /// <returns></returns>
         [HttpPost("{taskId}/comments")]
         public async Task<IActionResult> AddComment(int taskId, [FromBody] TaskComment comment)
         {

@@ -17,6 +17,12 @@ namespace TaskManagementAPI.Controllers
             _authService = authService;
         }
 
+
+        /// <summary>
+        /// Login Method for access and get the jwt token
+        /// </summary>
+        /// <param name="login"></param>
+        /// <returns></returns>
         [AllowAnonymous]
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginModel login)
