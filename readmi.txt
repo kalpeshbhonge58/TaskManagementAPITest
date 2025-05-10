@@ -1,0 +1,66 @@
+﻿# Task Management API
+
+A simple and secure RESTful Web API for managing tasks, built with ASP.NET Core, Entity Framework Core, and JWT authentication.
+This project is designed as a practical exercise to demonstrate clean architecture, user authorization, and CRUD operations with related entities.
+
+---
+
+## Features
+
+- User registration and login with JWT token authentication
+- Role-based authorization (Admin/Normal User)
+- CRUD operations for:
+  - Tasks
+  - Comments
+- Role-protected endpoints (e.g., only Admins can get all tasks)
+- Entity relationships:
+  - Each Task is assigned to a User
+  - Comments are linked to both Tasks and Users
+
+---
+
+## 🛠️ Tech Stack
+
+- ASP.NET Core Web API
+- Entity Framework Core
+- SQL Server
+- JWT Authentication
+- Swagger UI
+- AutoMapper (optional for DTOs)
+- Repository Pattern with Dependency Injection
+
+---
+
+## 🔐 Authentication & Authorization
+
+- JWT-based token authentication
+- Role-based policies (e.g., `Admin` policy)
+- Tokens are required for protected endpoints
+- Add a claim `role = "Admin"` to make a user an admin
+
+---
+
+## 📁 Project Structure
+│
+├── Controllers/
+│ └── AuthController.cs
+│ └── TasksController.cs
+│ 
+├── Models/
+│ └── LoginModel.cs
+│ └── LoginResponseModel.cs
+│ └── User.cs
+│ └── Tasks.cs
+│ └── TaskComment.cs
+│
+├── Repository/
+│ └── AuthService.cs
+│ └── ITaskService.cs
+│ └── TaskService.cs
+│
+├── Data/
+│ └── AppDbContext.cs
+│
+├── Program.cs / Startup.cs
+│
+├── appSettings.json
